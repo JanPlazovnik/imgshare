@@ -1,0 +1,10 @@
+<div class="topnav">
+    <a class="active" href="home.php">Image thingy</a>
+    <a href="upload.php">Upload</a>
+    <?php if($_SESSION['logged_in'] == true): ?>
+        <a style="float: right" href="logout.php">Sign out</a>
+    <?php else: ?>
+        <a style="float: right" href="login.php">Sign in</a>
+        <a style="float: right" href="register.php">Register</a>
+    <?php endif ?>
+</div>
