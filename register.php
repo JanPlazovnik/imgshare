@@ -80,7 +80,7 @@
             <input type="password" name="password" required/>
             <?php if(isset($passerror)){ ?><span><?php echo $passerror; ?></span><?php } ?>
             <br/>
-            <button type="submit" value="Register" name="register">
+            <button type="submit" name="register">Register</button>
         </form>
         <?php if(isset($errmsg)){ ?><span><?php echo $errmsg; ?></span><?php } ?>
         <?php if(isset($succmsg)){ ?><span><?php echo $succmsg; ?></span><?php } ?>

@@ -54,7 +54,7 @@
             <input type="password" name="password" required/>
             <?php if(isset($passerror)){ ?><span><?php echo $passerror; ?></span><?php } ?>
             <br/>
-            <button type="submit" value="Login" name="login">>
+            <button type="submit" name="login">Login</button>
         </form>
     </div>
 </body>

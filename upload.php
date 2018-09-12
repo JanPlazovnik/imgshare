@@ -82,8 +82,8 @@
             <br/>
             <label>Image description:</label>
             <input type="text" name="description" required />      
-            <br/>  
-            <input type="submit" value="Upload" name="submit">
+            <br/>
+            <button type="submit" name="submit">Upload</button>
         </form>
         <br/><br/>
         <?php if(isset($errmsg)){ ?><span><?php echo $errmsg; ?></span><?php } ?>
