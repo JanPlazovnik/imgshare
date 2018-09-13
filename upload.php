@@ -72,18 +72,16 @@
 </head>
 <body>
     <?php require 'components/nav.php' ?>
-    <div class = "centered">
+    <div class="centered">
         <form action="upload.php" method="post" enctype="multipart/form-data">
-            Select image to upload:
             <input type="file" name="imgfile" id="imgfile">
+            <label class="label-upload" for="imgfile">Choose photo</label>
             <br/>
-            <label>Image title:</label>
-            <input type="text" name="title" required />
+            <input class="btn" type="text" name="title" placeholder="Title" required />
             <br/>
-            <label>Image description:</label>
-            <input type="text" name="description" required />      
+            <input class="btn" type="text" placeholder="Description" name="description" required />      
             <br/>
-            <button type="submit" name="submit">Upload</button>
+            <button class="button" type="submit" name="submit">Upload</button>
         </form>
         <br/><br/>
         <?php if(isset($errmsg)){ ?><span><?php echo $errmsg; ?></span><?php } ?>

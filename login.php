@@ -5,7 +5,7 @@
 
     if($_SESSION['logged_in'] == true)
     {
-        header("location: home.php");
+        header("location: index.php");
     }
 
     if(isset($_POST['username']) && isset($_POST['password']))
@@ -25,7 +25,7 @@
             {
                 $_SESSION['logged_in'] = true;
                 $_SESSION['user_id'] = $user['id'];
-                header("location: home.php");
+                header("location: index.php");
             }
             else {
                 $passerror = "Incorrect password!";
@@ -44,17 +44,15 @@
 </head>
 <body>
     <?php require 'components/nav.php' ?>
-    <div class = "centered">
+    <div class="centered">
         <form action="login.php" method="post" autocomplete="off" enctype="multipart/form-data">
-            <label>Username</label><br/>
-            <input type="text" name="username" required/>
+            <input class="btn" placeholder="Username" type="text" name="username" required/>
             <?php if(isset($usererror)){ ?><span><?php echo $usererror; ?></span><?php } ?>
             <br/>
-            <label>Password</label><br/>
-            <input type="password" name="password" required/>
+            <input class="btn" placeholder="Password" type="password" name="password" required/>
             <?php if(isset($passerror)){ ?><span><?php echo $passerror; ?></span><?php } ?>
             <br/>
-            <button type="submit" name="login">Login</button>
+            <button class="button" type="submit" name="login">Login</button>
         </form>
     </div>
 </body>

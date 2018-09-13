@@ -5,7 +5,7 @@
    
     if($_SESSION['logged_in'] == true)
     {
-        header("location: home.php");
+        header("location: index.php");
     }
 
     if(isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']))
@@ -46,7 +46,7 @@
                     $_SESSION['logged_in'] = true;
                     $_SESSION['user_id'] = $user['id'];
                     $succmsg = "Account created!";
-                    header("location: home.php");
+                    header("location: index.php");
                 }
                 else {
                     $errmsg = "Account creation failed!";
@@ -66,21 +66,18 @@
 </head>
 <body>
     <?php require 'components/nav.php' ?>
-    <div class = "centered">
+    <div class="centered">
         <form action="register.php" method="post" autocomplete="off" enctype="multipart/form-data"> 
-            <label>Username</label><br/>
-            <input type="text" name="username" required/>
+            <input class="btn" type="text" placeholder="Username" name="username" required/>
             <?php if(isset($usererror)){ ?><span><?php echo $usererror; ?></span><?php } ?>
             <br/>
-            <label>Email</label><br/>
-            <input type="text" name="email" required/>
+            <input class="btn" type="text" placeholder="Email" name="email" required/>
             <?php if(isset($emailerror)){ ?><span><?php echo $emailerror; ?></span><?php } ?>
             <br/>
-            <label>Password</label><br/>
-            <input type="password" name="password" required/>
+            <input class="btn" type="password" placeholder="Password" name="password" required/>
             <?php if(isset($passerror)){ ?><span><?php echo $passerror; ?></span><?php } ?>
             <br/>
-            <button type="submit" name="register">Register</button>
+            <button class="button" type="submit" name="register">Register</button>
         </form>
         <?php if(isset($errmsg)){ ?><span><?php echo $errmsg; ?></span><?php } ?>
         <?php if(isset($succmsg)){ ?><span><?php echo $succmsg; ?></span><?php } ?>
