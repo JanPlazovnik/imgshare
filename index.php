@@ -17,7 +17,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Image thingy</title>
+    <title>Imgix</title>
     <?php require 'components/head.php' ?>
 </head>
 <body>
@@ -25,7 +25,7 @@
     <!-- top section-->
     <section class="intro">
         <div class="intro-text">
-            <h1>Image thingy</h1>
+            <h1>Imgix</h1>
             <p>Share your photos</p>
         </div>
     </section>
