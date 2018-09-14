@@ -1,1 +1,2 @@
-# imgshare
+# imgix
+Imgur Clone
