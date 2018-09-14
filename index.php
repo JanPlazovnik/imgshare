@@ -20,5 +20,15 @@
 </head>
 <body>
     <?php require 'components/nav.php' ?>
+    <!-- top section-->
+    <section class="intro">
+        <div class="intro-text">
+            <h1>Image thingy</h1>
+            <p>Share your photos</p>
+        </div>
+    </section>
+    <section id="photos">
+        <img src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/2018/europeslostf.jpg" style="width:100%">
+    </section>
 </body>
 </html>

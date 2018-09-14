@@ -3,12 +3,13 @@
     session_start();
 
     $imagehash = $_GET['img'];
-    $result = $mysqli->query("SELECT * FROM images WHERE imagehash='$imagehash'");
-    $image = $result->fetch_assoc();
-    $url = $image['imagehash'];
-    $ext = $image['extension'];
-    $title = $image['image_title'];
-    $desc = $image['image_description'];
+    $result = $mysqli->query("SELECT images.*, users.username, users.id FROM images JOIN users ON users.id = images.user_id WHERE imagehash='$imagehash'");
+    $info = $result->fetch_assoc();
+    $url = $info['imagehash'];
+    $ext = $info['extension'];
+    $title = $info['image_title'];
+    $desc = $info['image_description'];
+    $author = $info['username'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,19 +23,27 @@
 <body>
     <?php require 'components/nav.php' ?>
     <div class="centered">
-        <?php if(isset($url)): ?>
-            <div class="img-title">
-                <p><?php echo $title ?></p>
-            </div>
-            <div class="img-box">
+        <div class="img-area">
+            <?php if(isset($url)): ?>
+                <div class="img-header">
+                    <div class="img-title">
+                        <p><?php echo $title ?></p>
+                    </div>
+                    <div class="img-author">
+                        <p>by <?php echo $author ?></p>
+                    </div>
+                </div>
+                <div class="img-box">
                 <img src='images/<?php echo $url . "." . $ext?>'></img>
-            </div>
-            <div class="img-desc">
-                <p><?php echo $desc ?></p>
-            </div>
-        <?php else: ?>
-            <p>No image found.</p>
-        <?php endif ?>
+                </div>
+                <div class="img-desc">
+                    <p><?php echo $desc ?></p>
+                </div>
+            <?php else: ?>
+                <p>No image found.</p>
+            <?php endif ?>
+        </div>
     </div>
 </body>
 </html>
+

@@ -4,16 +4,28 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Tahoma', sans-serif;
-    overflow: hidden;
 }
 
 body {
-    background-color: #ebebeb;
+    background-color: #141518;
+}
+
+form {
+    min-width: 300px;
+}
+
+input,
+button {
+    display: block;
 }
 
 .topnav {
-    background-color: #333;
+    background-color: #2c2f34;
     overflow: hidden;
+    position: fixed;
+    top: 0px;
+    width: 100%;    
+    z-index: 99;
 }
 
 .topnav a {
@@ -23,15 +35,16 @@ body {
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+    transition: all 0.2s;
 }
 
 .topnav a:hover {
-    background-color: #cfd8dc;
-    color: black;
+    background-color: #222529;
+    color: #3f51b5;
 }
 
-.topnav a.active {
-    color: #7986cb;
+.active {
+    color: #7986cb !important;
 }
 
 .centered {
@@ -42,27 +55,108 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.btn {
-    width: 200px;
+.content {
+    position: relative;
+    width:960px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.input {
+    width: 100%;
     height: 50px;
-    border: 1px solid #cfd8dc;
+    border: 0px;
     border-bottom: 3px solid #7986cb;
-    background-color: #ffffff;
+    background-color: #2c2f34;
+    color: #fff;
     padding: 10px;
-    transition: all 0.5s;
     margin-top: 5px;
+    transition: all 0.3s;
+}
+
+.input:focus {
+    border-bottom: 5px solid #3f51b5;
+}
+
+/* index.php */
+
+.intro {
+    height: 100vh;
+}
+
+.intro-text {
+    position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+    margin: auto;  
+    height: 150px;
+    width: 500px;
+    
+}
+
+.intro-text > h1 {
+    color: #7986cb;
+    font-size: 70px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.5s;
+}
+
+.intro-text > h1:hover {
+    color: #3f51b5;
+}
+
+.intro-text > p {
+    color: #BBB;
+    font-size: 25px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* gallery.php */
 
+.img-area {
+    max-width: 700px;
+    min-width: 600px;
+    height: auto;
+    color: #fff;
+}
+
+.img-header {
+    background-color: #2c2f34;
+    border-radius: 3px 3px 0 0;  
+    padding: 10px;    
+}
+
 .img-title {
-  font-size: 15px;
-  color: #7986cb;
-  font-weight: bold;
+    font-size: 20px;
+    color: #7986cb;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.img-author {
+    color: #BBB;
 }
 
 .img-box {
-  padding:20px 20px;
+    background-color: #222529;
+}
+
+.img-desc {
+    color: #fff;
+    background-color: #2c2f34;
+    border-radius: 0px 0px 3px 3px;
+    padding: 10px;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    margin-left: auto;
+	margin-right: auto;    
 }
 
 /* upload.php */
@@ -75,23 +169,25 @@ body {
 	z-index: -1;
 }
 
-#imgfile + label {
-  color: #ffffff;
-  background-color: #7986cb;  
-  width: 100%;
-  font-size: 1.25rem;
-  font-weight: 700; 
-  white-space: nowrap;
-  cursor: pointer; 
-  display: inline-block;
-  padding: 0.625rem 1.25rem;
-  transition: background-color 0.3s;
+#imgfile,
+.label-upload {
+    color: #ffffff;
+    background-color: #7986cb;  
+    width: 100%;
+    font-size: 1.25rem;
+    font-weight: 700; 
+    white-space: nowrap;
+    cursor: pointer; 
+    display: block;
+    padding: 0.625rem 1.25rem;
+    transition: all 0.3s;
+    text-align: center;
 }
 
 #imgfile:focus + label,
 #imgfile + label:hover,
 .button:hover {
-  background-color: #3f51b5;
+    background-color: #3f51b5;
 }
 
 .button {
@@ -114,3 +210,50 @@ body {
     transition: background-color 0.3s;
     margin-top: 5px;
 }
+
+#photos {
+    /* Prevent vertical gaps */
+    line-height: 0;
+     
+    -webkit-column-count: 5;
+    -webkit-column-gap:   0px;
+    -moz-column-count:    5;
+    -moz-column-gap:      0px;
+    column-count:         5;
+    column-gap:           0px;  
+  }
+  
+  #photos img {
+    /* Just in case there are inline attributes */
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  @media (max-width: 1200px) {
+    #photos {
+    -moz-column-count:    4;
+    -webkit-column-count: 4;
+    column-count:         4;
+    }
+  }
+  @media (max-width: 1000px) {
+    #photos {
+    -moz-column-count:    3;
+    -webkit-column-count: 3;
+    column-count:         3;
+    }
+  }
+  @media (max-width: 800px) {
+    #photos {
+    -moz-column-count:    2;
+    -webkit-column-count: 2;
+    column-count:         2;
+    }
+  }
+  @media (max-width: 400px) {
+    #photos {
+    -moz-column-count:    1;
+    -webkit-column-count: 1;
+    column-count:         1;
+    }
+  }

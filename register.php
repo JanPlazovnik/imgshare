@@ -68,15 +68,12 @@
     <?php require 'components/nav.php' ?>
     <div class="centered">
         <form action="register.php" method="post" autocomplete="off" enctype="multipart/form-data"> 
-            <input class="btn" type="text" placeholder="Username" name="username" required/>
+            <input class="input" type="text" placeholder="Username" name="username" required/>
             <?php if(isset($usererror)){ ?><span><?php echo $usererror; ?></span><?php } ?>
-            <br/>
-            <input class="btn" type="text" placeholder="Email" name="email" required/>
+            <input class="input" type="text" placeholder="Email" name="email" required/>
             <?php if(isset($emailerror)){ ?><span><?php echo $emailerror; ?></span><?php } ?>
-            <br/>
-            <input class="btn" type="password" placeholder="Password" name="password" required/>
+            <input class="input" type="password" placeholder="Password" name="password" required/>
             <?php if(isset($passerror)){ ?><span><?php echo $passerror; ?></span><?php } ?>
-            <br/>
             <button class="button" type="submit" name="register">Register</button>
         </form>
         <?php if(isset($errmsg)){ ?><span><?php echo $errmsg; ?></span><?php } ?>

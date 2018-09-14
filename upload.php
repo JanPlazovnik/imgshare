@@ -75,12 +75,9 @@
     <div class="centered">
         <form action="upload.php" method="post" enctype="multipart/form-data">
             <input type="file" name="imgfile" id="imgfile">
-            <label class="label-upload" for="imgfile">Choose photo</label>
-            <br/>
-            <input class="btn" type="text" name="title" placeholder="Title" required />
-            <br/>
-            <input class="btn" type="text" placeholder="Description" name="description" required />      
-            <br/>
+            <label class="label-upload" for="imgfile">Choose photo</label>         
+            <input class="input" type="text" name="title" placeholder="Title" required />         
+            <input class="input" type="text" placeholder="Description" name="description" required />       
             <button class="button" type="submit" name="submit">Upload</button>
         </form>
         <br/><br/>

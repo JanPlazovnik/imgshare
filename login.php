@@ -46,12 +46,10 @@
     <?php require 'components/nav.php' ?>
     <div class="centered">
         <form action="login.php" method="post" autocomplete="off" enctype="multipart/form-data">
-            <input class="btn" placeholder="Username" type="text" name="username" required/>
+            <input class="input" placeholder="Username" type="text" name="username" required/>
             <?php if(isset($usererror)){ ?><span><?php echo $usererror; ?></span><?php } ?>
-            <br/>
-            <input class="btn" placeholder="Password" type="password" name="password" required/>
+            <input class="input" placeholder="Password" type="password" name="password" required/>
             <?php if(isset($passerror)){ ?><span><?php echo $passerror; ?></span><?php } ?>
-            <br/>
             <button class="button" type="submit" name="login">Login</button>
         </form>
     </div>
