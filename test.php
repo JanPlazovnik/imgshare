@@ -10,10 +10,9 @@
     var_dump($info);*/
 
     $result = $mysqli->query("SELECT * FROM images");
-    $images = $result->fetch_assoc();
 
-    foreach($images as $image)
-    {
-        var_dump($image);
-    }
+    while($row = mysqli_fetch_assoc($result))    
+    {  
+        var_dump($row);
+    } 
 ?>

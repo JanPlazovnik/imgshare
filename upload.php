@@ -47,6 +47,7 @@
                 if($mysqli->query($sql))
                 {
                     echo "<p>DB Successful</p>";
+                    $imgurl = "gallery.php?img=" . $imagehash;
                 } else {
                     echo "<p>DB Error</p>";
                 }               
@@ -80,7 +81,7 @@
             <input class="input" type="text" placeholder="Description" name="description" required />       
             <button class="button" type="submit" name="submit">Upload</button>
         </form>
-        <br/><br/>
+        <?php if(isset($imgurl)){ ?><span class="img-url"><?php echo "You can find your image <a href='" . $imgurl . "'>here</a>"; ?></span><?php } ?>
         <?php if(isset($errmsg)){ ?><span><?php echo $errmsg; ?></span><?php } ?>
         <?php if(isset($succmsg)){ ?><span><?php echo $succmsg; ?></span><?php } ?>
     </div>

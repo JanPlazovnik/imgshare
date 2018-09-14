@@ -2,12 +2,14 @@
     require 'app/db.php';
     session_start();
 
-    $result = $mysqli->query("SELECT * FROM images");
+    /*$result = $mysqli->query("SELECT * FROM images");
     $image = $result->fetch_assoc();
     $url = $image['imagehash'];
     $ext = $image['extension'];
     $title = $image['image_title'];
-    $desc = $image['image_description'];
+    $desc = $image['image_description'];*/
+
+    $result = $mysqli->query("SELECT * FROM images");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +30,15 @@
         </div>
     </section>
     <section id="photos">
-        <img src="https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/2018/europeslostf.jpg" style="width:100%">
+        <?php
+        while($row = mysqli_fetch_assoc($result))    
+        {  
+            echo "
+            <a href='gallery.php?img=" . $row['imagehash'] . "'>
+                <img src='images/" . $row['imagehash'] . "." . $row['extension'] . "'>
+            </a>'";      
+        }
+        ?>
     </section>
 </body>
 </html>
