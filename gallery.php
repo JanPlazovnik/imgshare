@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="img-box">
-                <img class="gallery-img" src='images/<?php echo $url . "." . $ext?>'></img>
+                <img class="gallery-img" src='images/<?php echo $url . "." . $ext?>'>
                 </div>
                 <div class="img-desc">
                     <p><?php echo $desc ?></p>
