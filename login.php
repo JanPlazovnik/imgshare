@@ -44,7 +44,7 @@
 </head>
 <body>
     <?php require 'components/nav.php' ?>
-    <div class="centered">
+    <div class="center">
         <form action="login.php" method="post" autocomplete="off" enctype="multipart/form-data">
             <input class="input" placeholder="Username" type="text" name="username" required/>
             <?php if(isset($usererror)){ ?><span><?php echo $usererror; ?></span><?php } ?>

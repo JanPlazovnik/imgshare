@@ -15,11 +15,11 @@
         $password = $_POST['password'];
         
         if (strlen($password) < 6) {
-            $passerror = 'Password too short.';
+            $passerror = 'Password must be at least 6 characters long.';
         }
-        else if(strlen($username) > 16)
+        else if((strlen($username) < 4) || (strlen($username) > 16))
         {
-            $usererror = 'Username too long.';
+            $usererror = 'Username must be betwen 4 and 16 characters long.';
         }
         else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $emailerror = "Invalid email format";
@@ -66,7 +66,7 @@
 </head>
 <body>
     <?php require 'components/nav.php' ?>
-    <div class="centered">
+    <div class="center" style="color: #fff">
         <form action="register.php" method="post" autocomplete="off" enctype="multipart/form-data"> 
             <input class="input" type="text" placeholder="Username" name="username" required/>
             <?php if(isset($usererror)){ ?><span><?php echo $usererror; ?></span><?php } ?>

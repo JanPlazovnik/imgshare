@@ -73,7 +73,7 @@
 </head>
 <body>
     <?php require 'components/nav.php' ?>
-    <div class="centered">
+    <div class="center">
         <form action="upload.php" method="post" enctype="multipart/form-data">
             <input type="file" name="imgfile" id="imgfile" accept=".jpeg, .jpg, .png">
             <label class="label-upload" for="imgfile">Choose photo</label>         
