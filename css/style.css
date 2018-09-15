@@ -150,6 +150,25 @@ button {
     background-color: #222529;
 }
 
+.img-controls {
+    color: #fff;
+    background-color: #2c2f34;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 2px dashed #7986cb;
+}
+
+.img-controls > a {
+    text-decoration: none;
+    color: #7986cb;
+    transition: all 0.3s;
+}
+
+.img-controls > a:hover {
+    text-decoration: none;
+    color: #3f51b5;
+}
+
 .img-desc {
     color: #fff;
     background-color: #2c2f34;

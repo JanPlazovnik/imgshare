@@ -9,7 +9,7 @@
     $title = $image['image_title'];
     $desc = $image['image_description'];*/
 
-    $result = $mysqli->query("SELECT images.*, users.username, users.id FROM images JOIN users ON users.id = images.user_id");
+    $result = $mysqli->query("SELECT images.*, users.username, users.id FROM images JOIN users ON users.id = images.user_id ORDER BY time_uploaded DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">

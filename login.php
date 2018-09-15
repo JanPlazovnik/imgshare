@@ -25,6 +25,7 @@
             {
                 $_SESSION['logged_in'] = true;
                 $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
                 header("location: index.php");
             }
             else {

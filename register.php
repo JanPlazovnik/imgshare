@@ -45,6 +45,7 @@
                 {
                     $_SESSION['logged_in'] = true;
                     $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['username'] = $user['username'];
                     $succmsg = "Account created!";
                     header("location: index.php");
                 }
