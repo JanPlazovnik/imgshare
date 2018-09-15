@@ -22,7 +22,7 @@
 </head>
 <body>
     <?php require 'components/nav.php' ?>
-    <div class="centered">
+    <div style="margin-top: 100px" class="centered">
         <div class="img-area">
             <?php if(isset($url)): ?>
                 <div class="img-header">
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="img-box">
-                <img src='images/<?php echo $url . "." . $ext?>'></img>
+                <img class="gallery-img" src='images/<?php echo $url . "." . $ext?>'></img>
                 </div>
                 <div class="img-desc">
                     <p><?php echo $desc ?></p>

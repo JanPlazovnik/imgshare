@@ -75,7 +75,7 @@
     <?php require 'components/nav.php' ?>
     <div class="centered">
         <form action="upload.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="imgfile" id="imgfile">
+            <input type="file" name="imgfile" id="imgfile" accept=".jpeg, .jpg, .png">
             <label class="label-upload" for="imgfile">Choose photo</label>         
             <input class="input" type="text" name="title" placeholder="Title" required />         
             <input class="input" type="text" placeholder="Description" name="description" required />       

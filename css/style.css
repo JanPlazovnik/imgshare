@@ -25,7 +25,8 @@ button {
     position: fixed;
     top: 0px;
     width: 100%;    
-    z-index: 99;
+    z-index: 99;  
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .topnav a {
@@ -48,11 +49,9 @@ button {
 }
 
 .centered {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    width:800px;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .content {
@@ -72,6 +71,7 @@ button {
     padding: 10px;
     margin-top: 5px;
     transition: all 0.3s;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .input:focus {
@@ -115,53 +115,7 @@ button {
     font-family: 'Roboto', sans-serif;
 }
  
-/* yeah really don't feel like doing the photo grid by myself */
-#photos {
-    /* Prevent vertical gaps */
-    line-height: 0;
-     
-    -webkit-column-count: 5;
-    -webkit-column-gap:   0px;
-    -moz-column-count:    5;
-    -moz-column-gap:      0px;
-    column-count:         5;
-    column-gap:           0px;  
-  }
-  
-  #photos img {
-    /* Just in case there are inline attributes */
-    width: 100% !important;
-    height: auto !important;
-  }
-  
-  @media (max-width: 1200px) {
-    #photos {
-    -moz-column-count:    4;
-    -webkit-column-count: 4;
-    column-count:         4;
-    }
-  }
-  @media (max-width: 1000px) {
-    #photos {
-    -moz-column-count:    3;
-    -webkit-column-count: 3;
-    column-count:         3;
-    }
-  }
-  @media (max-width: 800px) {
-    #photos {
-    -moz-column-count:    2;
-    -webkit-column-count: 2;
-    column-count:         2;
-    }
-  }
-  @media (max-width: 400px) {
-    #photos {
-    -moz-column-count:    1;
-    -webkit-column-count: 1;
-    column-count:         1;
-    }
-  }
+
 
 /* gallery.php */
 
@@ -170,6 +124,7 @@ button {
     min-width: 600px;
     height: auto;
     color: #fff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .img-header {
@@ -200,7 +155,7 @@ button {
     padding: 10px;
 }
 
-img {
+.gallery-img {
     display: block;
     max-width: 100%;
     margin-left: auto;
@@ -230,6 +185,7 @@ img {
     padding: 0.625rem 1.25rem;
     transition: all 0.3s;
     text-align: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 #imgfile:focus + label,
@@ -266,4 +222,44 @@ img {
     color: #ffffff;
     transition: background-color 0.3s;
     margin-top: 5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;    
+}
+
+.container {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-rows: repeat(2, auto);
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.grid-item {
+    border-radius: 3px 3px 0 0;  
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background-color: #222529;
+}
+
+.grid-image {
+    max-height: 250px;
+    object-fit: cover;
+}
+
+.grid-imgbox {
+    height: 250px;
+    overflow: hidden;
+    background-color: #222529;
+    justify-content: center;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
 }

@@ -9,7 +9,7 @@
     $title = $image['image_title'];
     $desc = $image['image_description'];*/
 
-    $result = $mysqli->query("SELECT * FROM images");
+    $result = $mysqli->query("SELECT images.*, users.username, users.id FROM images JOIN users ON users.id = images.user_id");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,22 +23,34 @@
 <body>
     <?php require 'components/nav.php' ?>
     <!-- top section-->
-    <section class="intro">
+    <!--<section class="intro">
         <div class="intro-text">
             <h1>Imgix</h1>
             <p>Share your photos</p>
         </div>
-    </section>
-    <section id="photos">
+    </section>-->
+    <div style="margin-top: 80px" class="container">
         <?php
-        while($row = mysqli_fetch_assoc($result))    
-        {  
-            echo "
-            <a href='gallery.php?img=" . $row['imagehash'] . "'>
-                <img src='images/" . $row['imagehash'] . "." . $row['extension'] . "'>
-            </a>'";      
-        }
-        ?>
-    </section>
+            while($row = mysqli_fetch_assoc($result))    
+            {  
+                echo "
+                <div class='grid-item'>
+                    <div class='img-header'>
+                        <div class='img-title'>
+                            <p>" . $row['image_title'] . "</p>
+                        </div>
+                        <div class='img-author'>
+                            <p>by " . $row['username'] . "</p>
+                        </div>
+                    </div>
+                    <div class='grid-imgbox'>
+                        <a href='gallery.php?img=" . $row['imagehash'] . "'>
+                            <img class='grid-image' src='images/" . $row['imagehash'] . "." . $row['extension'] . "'>
+                        </a>
+                    </div>
+                </div>"; 
+            }
+        ?>   
+    </div>
 </body>
 </html>
