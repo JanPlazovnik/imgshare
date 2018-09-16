@@ -4,6 +4,7 @@
         <a href="upload.php">Upload</a>
         <?php if($_SESSION['logged_in'] == true): ?>
             <a class="right" href="logout.php">Sign out</a>
+            <a class="right" href="<?php echo 'user.php?user=' . $_SESSION['username']?>"><?php echo $_SESSION['username'] ?></a>
         <?php else: ?>
             <a class="right" href="login.php">Sign in</a>
             <a class="right" href="register.php">Register</a>

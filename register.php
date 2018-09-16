@@ -38,16 +38,11 @@
                 $errmsg = "Account already exists!";
             }
             else {
-                if(strlen($_POST['email']) > 6) {
-                    $sql = "INSERT INTO users (username, password, email, time_created)". "VALUES ('$username', '$password', '$email', NOW())";    
-                }     
+                $sql = "INSERT INTO users (username, password, email, time_created)". "VALUES ('$username', '$password', '$email', NOW())";      
                 if($mysqli->query($sql))
                 {
-                    $_SESSION['logged_in'] = true;
-                    $_SESSION['user_id'] = $user['id'];
-                    $_SESSION['username'] = $user['username'];
                     $succmsg = "Account created!";
-                    header("location: index.php");
+                    header("location: login.php");
                 }
                 else {
                     $errmsg = "Account creation failed!";

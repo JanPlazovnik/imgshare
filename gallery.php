@@ -2,8 +2,8 @@
     require 'app/db.php';
     session_start();
 
-    $imagehash = $_GET['img'];
-    $result = $mysqli->query("SELECT images.*, users.username, users.id FROM images JOIN users ON users.id = images.user_id WHERE imagehash='$imagehash'");
+    $imagehash = $mysqli->escape_string($_GET['img']);
+    $result = $mysqli->query("SELECT images.*, users.username FROM images JOIN users ON users.id = images.user_id WHERE imagehash='$imagehash'");
     $info = $result->fetch_assoc();
     $imageid = $info['id'];
     $url = $info['imagehash'];
@@ -15,6 +15,8 @@
     $id = $_SESSION['user_id'];
 
     $dellink = "gallery.php?img=" . $url . "&delete=1";
+
+    $uploaded = date( 'd-m-Y H:i', strtotime($info['time_uploaded']) );
 
     if(($_GET['delete'] == 1) && ($id == $userid))
     {
@@ -30,6 +32,26 @@
         }
         else 
             echo "db fucked up";
+    }
+
+    if(isset($_POST['submitcomment']))
+    {
+        $comment = htmlspecialchars(strip_tags($_POST['comment']));
+        if(strlen($comment) > 250)
+        {
+            $error = "You have exceeded the comment length of 250 characters.";
+        }
+        else {
+            $sql = "INSERT INTO comments (image_id, user_id, comment_text, time_created)" . "VALUES ('$imageid', '$id', '$comment', NOW())";
+            
+            if($mysqli->query($sql))
+            {
+                $success = "gj";
+            }
+            else {
+                $error = "idiot";
+            }
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -51,7 +73,7 @@
                         <p><?php echo $title ?></p>
                     </div>
                     <div class="img-author">
-                        <p>by <?php echo $author ?></p>
+                        <p>by <a class="img-url" href="<?php echo 'user.php?user=' . $author?>"><?php echo $author ?></a> on <?php echo $uploaded ?></p>
                     </div>
                 </div>
                 <div class="img-box">
@@ -69,7 +91,39 @@
                 <p>No image found.</p>
             <?php endif ?>
         </div>
+        <div class="comments">
+            <?php if($_SESSION['logged_in'] == true): ?>
+            <div class="new-comment">
+                <?php if(isset($success)) { ?><p><?php echo $success?></p><?php }?>
+                <?php if(isset($error)) { ?><p><?php echo $error?></p><?php }?>
+                <form action="gallery.php?img=<?php echo $url?>" method="post" autocomplete="off" enctype="multipart/form-data">
+                    <textarea class="input" placeholder="Write your comment" name="comment" maxlength="250" required></textarea>
+                    <button class="button" type="submit" name="submitcomment">Submit</button>
+                </form>
+            </div>
+            <?php elseif($_SESSION['logged_in'] == false): ?>
+            <h2 class="comment-login">Log in to leave a comment.</h2>
+            <?php  endif ?>
+            <div <?php if($_SESSION['logged_in'] == true) { echo 'style="margin-top: 54px"'; } ?> class="all-comments">
+                <?php
+                    $result = $mysqli->query("SELECT comments.*, users.username FROM comments JOIN users ON users.id = comments.user_id WHERE image_id='$imageid' ORDER BY comments.time_created DESC");      
+                    while($row = mysqli_fetch_assoc($result))    
+                    {  
+                        $commenter = $row['username'];
+                        $when = date( 'd-m-Y H:i', strtotime($row['time_created']) );
+                        echo "
+                            <div class='comment-item'>
+                                <div class='comment-author'>
+                                    <p><a class='img-url' href='user.php?user=$commenter'>$commenter</a> on $when</p>
+                                </div>
+                                <div class='comment-content'>
+                                    <p>" . $row['comment_text'] . "</p>
+                                </div>
+                            </div>";
+                    }
+                ?>   
+            </div>
+        </div>
     </div>
 </body>
 </html>
-
