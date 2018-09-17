@@ -26,6 +26,7 @@
                 $_SESSION['logged_in'] = true;
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
+                $_SESSION['admin'] = $user['admin'];
                 header("location: index.php");
             }
             else {
@@ -45,14 +46,15 @@
 </head>
 <body>
     <?php require 'components/nav.php' ?>
-    <div class="center">
+    <div class="center" style="text-align: center">
         <form action="login.php" method="post" autocomplete="off" enctype="multipart/form-data">
             <input class="input" placeholder="Username" type="text" name="username" required/>
-            <?php if(isset($usererror)){ ?><span><?php echo $usererror; ?></span><?php } ?>
+            <?php if(isset($usererror)){ ?><span style="color: #bbb; text-align: center"><?php echo $usererror; ?></span><?php } ?>
             <input class="input" placeholder="Password" type="password" name="password" required/>
-            <?php if(isset($passerror)){ ?><span><?php echo $passerror; ?></span><?php } ?>
+            <?php if(isset($passerror)){ ?><span style="color: #bbb; text-align: center"><?php echo $passerror; ?></span><?php } ?>
             <button class="button" type="submit" name="login">Login</button>
         </form>
     </div>
+    <?php require 'components/footer.php' ?>
 </body>
 </html>

@@ -60,6 +60,7 @@ button {
     max-width:800px;
     margin-left:auto;
     margin-right:auto;
+    margin-bottom: 120px;
 }
 
 .content {
@@ -226,6 +227,7 @@ button {
 .img-url {
     color: #fff;
     transition: all 0.3s;
+    text-decoration: none;
 }
 
 .img-url:hover {
@@ -234,7 +236,6 @@ button {
 
 .button {
     border-radius: 3px;
-    float: left;
     display: block;
     width: 100%;
     padding: 0.625rem 1.25rem;
@@ -243,7 +244,6 @@ button {
     color: inherit;
     vertical-align: middle;
     position: relative;
-    z-index: 1;
     -webkit-backface-visibility: hidden;
     -moz-osx-font-smoothing: grayscale;
     background-color: #ff6961;
@@ -256,28 +256,30 @@ button {
 }
 
 .container {
-    max-width: 960px;
-    margin: 0 auto;    
-}
-
-.container {
     display: grid;
     grid-gap: 10px;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-template-rows: repeat(2, auto);
     max-width: 960px;
-    margin: 0 auto;
+    margin: 0 auto;  
+    margin-bottom: 120px;  
 }
 
 .grid-item {
-    border-radius: 3px 3px 0 0;  
+    border-radius: 3px;  
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    background-color: #222529;
+    background-color: #2c2f34;
+    transition: all 0.20s;
+}
+
+.grid-item:hover { 
+    box-shadow: 0 0px 4px rgba(255, 105, 97, 0.25), 0 0px 4px rgba(255, 62, 52, 0.25);
 }
 
 .grid-image {
     max-height: 250px;
     object-fit: cover;
+    height: 100%;
 }
 
 .grid-imgbox {
@@ -370,4 +372,29 @@ button {
     padding: 15px;
     color: #ff6961;
     text-align: center;
+}
+
+.footer {
+    background-color: #2c2f34;
+    position: fixed;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    box-shadow: 0 -3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.footer-author {
+    color: #BBB;
+    font-size: 15px;
+}
+
+.footer-heart {
+    color: #ff6961;
+}
+
+.footer-heart:hover {
+    color: #ff3e34;
 }

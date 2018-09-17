@@ -3,7 +3,7 @@
     session_start();
 
     $imagehash = $mysqli->escape_string($_GET['img']);
-    $result = $mysqli->query("SELECT images.*, users.username FROM images JOIN users ON users.id = images.user_id WHERE imagehash='$imagehash'");
+    $result = $mysqli->query("SELECT images.*, users.username, users.admin FROM images JOIN users ON users.id = images.user_id WHERE imagehash='$imagehash'");
     $info = $result->fetch_assoc();
     $imageid = $info['id'];
     $url = $info['imagehash'];
@@ -18,7 +18,7 @@
 
     $uploaded = date( 'd-m-Y H:i', strtotime($info['time_uploaded']) );
 
-    if(($_GET['delete'] == 1) && ($id == $userid))
+    if(($_GET['delete'] == 1) && (($id == $userid) || $_SESSION['admin']))
     {
         $path = "images/" . $url . "." . $ext;
         $sql = "DELETE FROM images WHERE imagehash='$url'";
@@ -36,14 +36,18 @@
 
     if(isset($_POST['submitcomment']))
     {
-        $comment = htmlspecialchars(strip_tags($_POST['comment']));
+        $comment = htmlspecialchars(trim($_POST['comment']));
+        
         if(strlen($comment) > 250)
         {
             $error = "You have exceeded the comment length of 250 characters.";
         }
+        else if($comment == "")
+        {
+            $error = "Comment can't be empty.";
+        }
         else {
             $sql = "INSERT INTO comments (image_id, user_id, comment_text, time_created)" . "VALUES ('$imageid', '$id', '$comment', NOW())";
-            
             if($mysqli->query($sql))
             {
                 $success = "gj";
@@ -79,7 +83,7 @@
                 <div class="img-box">
                 <img class="gallery-img" src='images/<?php echo $url . "." . $ext?>'>
                 </div>
-                <?php if($id == $userid): ?>
+                <?php if(($id == $userid) || $_SESSION['admin']): ?>
                     <div class="img-controls">              
                         <a href="<?php echo $dellink?>">Delete</a>
                     </div>
@@ -91,11 +95,10 @@
                 <p>No image found.</p>
             <?php endif ?>
         </div>
+        <?php if(isset($url)): ?>
         <div class="comments">
             <?php if($_SESSION['logged_in'] == true): ?>
             <div class="new-comment">
-                <?php if(isset($success)) { ?><p><?php echo $success?></p><?php }?>
-                <?php if(isset($error)) { ?><p><?php echo $error?></p><?php }?>
                 <form action="gallery.php?img=<?php echo $url?>" method="post" autocomplete="off" enctype="multipart/form-data">
                     <textarea class="input" placeholder="Write your comment" name="comment" maxlength="250" required></textarea>
                     <button class="button" type="submit" name="submitcomment">Submit</button>
@@ -104,7 +107,7 @@
             <?php elseif($_SESSION['logged_in'] == false): ?>
             <h2 class="comment-login">Log in to leave a comment.</h2>
             <?php  endif ?>
-            <div <?php if($_SESSION['logged_in'] == true) { echo 'style="margin-top: 54px"'; } ?> class="all-comments">
+            <div class="all-comments">
                 <?php
                     $result = $mysqli->query("SELECT comments.*, users.username FROM comments JOIN users ON users.id = comments.user_id WHERE image_id='$imageid' ORDER BY comments.time_created DESC");      
                     while($row = mysqli_fetch_assoc($result))    
@@ -125,5 +128,7 @@
             </div>
         </div>
     </div>
+    <?php endif ?>
+    <?php require 'components/footer.php' ?>
 </body>
 </html>

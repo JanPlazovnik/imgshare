@@ -3,11 +3,15 @@
         <a class="active" href="index.php">Imgix</a>
         <a href="upload.php">Upload</a>
         <?php if($_SESSION['logged_in'] == true): ?>
-            <a class="right" href="logout.php">Sign out</a>
-            <a class="right" href="<?php echo 'user.php?user=' . $_SESSION['username']?>"><?php echo $_SESSION['username'] ?></a>
+        <div style="float: right">
+            <a href="<?php echo 'user.php?user=' . $_SESSION['username']?>"><?php echo $_SESSION['username'] ?></a>
+            <a href="logout.php">Sign out</a>
+        </div>
         <?php else: ?>
-            <a class="right" href="login.php">Sign in</a>
-            <a class="right" href="register.php">Register</a>
+        <div style="float: right">
+            <a href="login.php">Sign in</a>
+            <a href="register.php">Register</a>
+        </div>
         <?php endif ?>
     </div>
 </div>

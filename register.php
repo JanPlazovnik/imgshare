@@ -62,18 +62,19 @@
 </head>
 <body>
     <?php require 'components/nav.php' ?>
-    <div class="center" style="color: #fff">
+    <div class="center" style="text-align: center">
         <form action="register.php" method="post" autocomplete="off" enctype="multipart/form-data"> 
             <input class="input" type="text" placeholder="Username" name="username" required/>
-            <?php if(isset($usererror)){ ?><span><?php echo $usererror; ?></span><?php } ?>
+            <?php if(isset($usererror)){ ?><span style="color: #bbb; text-align: center"><?php echo $usererror; ?></span><?php } ?>
             <input class="input" type="text" placeholder="Email" name="email" required/>
-            <?php if(isset($emailerror)){ ?><span><?php echo $emailerror; ?></span><?php } ?>
+            <?php if(isset($emailerror)){ ?><span style="color: #bbb; text-align: center"><?php echo $emailerror; ?></span><?php } ?>
             <input class="input" type="password" placeholder="Password" name="password" required/>
-            <?php if(isset($passerror)){ ?><span><?php echo $passerror; ?></span><?php } ?>
+            <?php if(isset($passerror)){ ?><span style="color: #bbb; text-align: center"><?php echo $passerror; ?></span><?php } ?>
             <button class="button" type="submit" name="register">Register</button>
         </form>
-        <?php if(isset($errmsg)){ ?><span><?php echo $errmsg; ?></span><?php } ?>
-        <?php if(isset($succmsg)){ ?><span><?php echo $succmsg; ?></span><?php } ?>
+        <?php if(isset($errmsg)){ ?><span style="color: #bbb; text-align: center"><?php echo $errmsg; ?></span><?php } ?>
+        <?php if(isset($succmsg)){ ?><span style="color: #bbb; text-align: center"><?php echo $succmsg; ?></span><?php } ?>
     </div>
+    <?php require 'components/footer.php' ?>
 </body>
 </html>

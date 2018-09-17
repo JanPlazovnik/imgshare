@@ -34,23 +34,25 @@
             while($row = mysqli_fetch_assoc($result))    
             {  
                 echo "
-                <div class='grid-item'>
-                    <div class='img-header'>
-                        <div class='img-title'>
-                            <p>" . $row['image_title'] . "</p>
+                <a style='text-decoration: none' href='gallery.php?img=" . $row['imagehash'] . "'>
+                    <div class='grid-item'>
+                        <div class='img-header'>
+                            <div class='img-title'>
+                                <p>" . $row['image_title'] . "</p>
+                            </div>
+                            <div class='img-author'>
+                                <p>by " . $row['username'] . "</p>
+                            </div>
                         </div>
-                        <div class='img-author'>
-                            <p>by " . $row['username'] . "</p>
-                        </div>
-                    </div>
-                    <div class='grid-imgbox'>
-                        <a href='gallery.php?img=" . $row['imagehash'] . "'>
+                        <div class='grid-imgbox'>
                             <img class='grid-image' src='images/" . $row['imagehash'] . "." . $row['extension'] . "'>
-                        </a>
+                        </div>
+                        <br/>
                     </div>
-                </div>"; 
+                </a>"; 
             }
         ?>   
     </div>
+    <?php require 'components/footer.php' ?>
 </body>
 </html>

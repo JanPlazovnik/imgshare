@@ -10,7 +10,7 @@
     $info = $result->fetch_assoc();
     var_dump($info);*/
 
-    echo $_SESSION['user_id'] . " => " . $_SESSION['username'] . " => Logged in: " . $_SESSION['logged_in'];
+    echo $_SESSION['user_id'] . " => " . $_SESSION['username'] . " => Logged in: " . $_SESSION['logged_in'] . "ADMIN: " . $_SESSION['admin'];
     die();
 
     $result = $mysqli->query("SELECT * FROM images");

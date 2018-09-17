@@ -85,5 +85,6 @@
         <?php if(isset($errmsg)){ ?><span><?php echo $errmsg; ?></span><?php } ?>
         <?php if(isset($succmsg)){ ?><span><?php echo $succmsg; ?></span><?php } ?>
     </div>
+    <?php require 'components/footer.php' ?>
 </body>
 </html>
