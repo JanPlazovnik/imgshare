@@ -16,7 +16,7 @@
 
     $dellink = "gallery.php?img=" . $url . "&delete=1";
 
-    $uploaded = date( 'd-m-Y H:i', strtotime($info['time_uploaded']) );
+    $uploaded = date( 'd.m.Y H:i', strtotime($info['time_uploaded']) );
 
     if(($_GET['delete'] == 1) && (($id == $userid) || $_SESSION['admin']))
     {
@@ -105,7 +105,7 @@
                 </form>
             </div>
             <?php elseif($_SESSION['logged_in'] == false): ?>
-            <h2 class="comment-login">Log in to leave a comment.</h2>
+            <h2 class="comment-login">In order to comment you must first login.</h2>
             <?php  endif ?>
             <div class="all-comments">
                 <?php
@@ -113,7 +113,7 @@
                     while($row = mysqli_fetch_assoc($result))    
                     {  
                         $commenter = $row['username'];
-                        $when = date( 'd-m-Y H:i', strtotime($row['time_created']) );
+                        $when = date( 'd.m.Y H:i', strtotime($row['time_created']) );
                         echo "
                             <div class='comment-item'>
                                 <div class='comment-author'>

@@ -21,6 +21,7 @@ span {
 input,
 button {
     display: block;
+    outline: none;
 }
 
 .topnav {
