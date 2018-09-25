@@ -399,3 +399,13 @@ button {
 .footer-heart:hover {
     color: #ff3e34;
 }
+
+.img-icons {
+    color: #BBB;
+    transition: all 0.3s;
+}
+
+.img-icons:hover {
+    color: #ff6961;
+    cursor: pointer; 
+}

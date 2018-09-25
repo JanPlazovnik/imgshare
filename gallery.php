@@ -66,33 +66,45 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?php echo $title?></title>
     <?php require 'components/head.php' ?>
+    <script type="text/javascript">
+        function removeComment(id) {
+            $.ajax({
+                type: "POST",
+                url: "comment-delete.php",
+                data: "comment_id=" + id,
+                success: function(){
+                    $("#cmnt" + id).remove();
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <?php require 'components/nav.php' ?>
     <div style="margin-top: 100px" class="centered">
         <div class="img-area">
-            <?php if(isset($url)): ?>
-                <div class="img-header">
-                    <div class="img-title">
-                        <p><?php echo $title ?></p>
-                    </div>
-                    <div class="img-author">
-                        <p>by <a class="img-url" href="<?php echo 'user.php?user=' . $author?>"><?php echo $author ?></a> on <?php echo $uploaded ?></p>
-                    </div>
+            	<?php if(isset($url)): ?>
+            <div class="img-header">
+                <div class="img-title">
+                    <p><?php echo $title ?></p>
                 </div>
-                <div class="img-box">
-                <img class="gallery-img" src='images/<?php echo $url . "." . $ext?>'>
+                <div class="img-author">
+                    <p>by <a class="img-url" href="<?php echo 'user.php?user=' . $author?>"><?php echo $author ?></a> on <?php echo $uploaded ?></p>
                 </div>
-                <?php if(($id == $userid) || $_SESSION['admin']): ?>
-                    <div class="img-controls">              
-                        <a href="<?php echo $dellink?>">Delete</a>
-                    </div>
-                <?php endif; ?>  
-                <div class="img-desc">
-                    <p><?php echo $desc ?></p>
-                </div>
+            </div>
+            <div class="img-box">
+            <img class="gallery-img" src='images/<?php echo $url . "." . $ext?>'>
+            </div>
+            <?php if(($id == $userid) || $_SESSION['admin']): ?>
+            <div class="img-controls">              
+                <a href="<?php echo $dellink?>"><i class="icofont-trash"></i></a>
+            </div>
+            <?php endif; ?>  
+            <div class="img-desc">
+                <p><?php echo $desc ?></p>
+            </div>
             <?php else: ?>
-                <p>No image found.</p>
+            <p>No image found.</p>
             <?php endif ?>
         </div>
         <?php if(isset($url)): ?>
@@ -105,7 +117,7 @@
                 </form>
             </div>
             <?php elseif($_SESSION['logged_in'] == false): ?>
-            <h2 class="comment-login">In order to comment you must first login.</h2>
+            <h3 class="comment-login">In order to comment you must first login.</h3>
             <?php  endif ?>
             <div class="all-comments">
                 <?php
@@ -114,15 +126,20 @@
                     {  
                         $commenter = $row['username'];
                         $when = date( 'd.m.Y H:i', strtotime($row['time_created']) );
-                        echo "
-                            <div class='comment-item'>
-                                <div class='comment-author'>
-                                    <p><a class='img-url' href='user.php?user=$commenter'>$commenter</a> on $when</p>
-                                </div>
-                                <div class='comment-content'>
-                                    <p>" . $row['comment_text'] . "</p>
-                                </div>
-                            </div>";
+                        $commentId = $row['id'];
+                        $user = $row['user_id'];
+                        echo "<div id='cmnt$commentId' class='comment-item'>";
+                            echo "<div class='comment-author'>";
+                                echo "<p><a class='img-url' href='user.php?user=$commenter'>$commenter</a> on $when";     
+                                if($user == $_SESSION['user_id'])
+                                {
+                                    echo " | <span class='img-icons' onclick='removeComment($commentId)'><i class='icofont-trash'></i></span></p>";
+                                }
+                            echo "</div>";           
+                            echo "<div class='comment-content'>";     
+                                echo "<p>" . $row['comment_text'] . "</p>";
+                            echo "</div>";
+                        echo "</div>";
                     }
                 ?>   
             </div>

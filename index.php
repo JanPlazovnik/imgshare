@@ -22,34 +22,26 @@
 </head>
 <body>
     <?php require 'components/nav.php' ?>
-    <!-- top section-->
-    <!--<section class="intro">
-        <div class="intro-text">
-            <h1>Imgix</h1>
-            <p>Share your photos</p>
-        </div>
-    </section>-->
     <div style="margin-top: 80px" class="container">
         <?php
             while($row = mysqli_fetch_assoc($result))    
             {  
-                echo "
-                <a style='text-decoration: none' href='gallery.php?img=" . $row['imagehash'] . "'>
-                    <div class='grid-item'>
-                        <div class='img-header'>
-                            <div class='img-title'>
-                                <p>" . $row['image_title'] . "</p>
-                            </div>
-                            <div class='img-author'>
-                                <p>by " . $row['username'] . "</p>
-                            </div>
-                        </div>
-                        <div class='grid-imgbox'>
-                            <img class='grid-image' src='images/" . $row['imagehash'] . "." . $row['extension'] . "'>
-                        </div>
-                        <br/>
-                    </div>
-                </a>"; 
+                echo "<a style='text-decoration: none' href='gallery.php?img=" . $row['imagehash'] . "'>";
+                    echo "<div class='grid-item'>";
+                        echo "<div class='img-header'>";
+                            echo "<div class='img-title'>";
+                                echo "<p>" . $row['image_title'] . "</p>";
+                            echo "</div>";
+                            echo "<div class='img-author'>";
+                                echo "<p>by " . $row['username'] . "</p>";
+                            echo "</div>";
+                        echo "</div>";
+                        echo "<div class='grid-imgbox'>";
+                            echo "<img class='grid-image' src='images/" . $row['imagehash'] . "." . $row['extension'] . "'>";
+                        echo "</div>";
+                        echo "<br/>";
+                    echo "</div>";
+                echo "</a>";
             }
         ?>   
     </div>
