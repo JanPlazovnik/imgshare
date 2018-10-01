@@ -77,16 +77,42 @@
                 }
             });
         }
+
+        function editComment() {
+            var newTitle = $("#title").html();
+            $("#title").replaceWith('<input type="text" id="title" class="input-edit" placeholder="' + newTitle + '">');
+            var newDesc = $("#desc").html();
+            $("#desc").replaceWith('<textarea class="input-edit" id="desc" placeholder="' + newDesc + '">');
+            $("#edit").replaceWith('<a id="save" onclick="saveComment()"><i class="icofont-save"></i></a>');
+        }  
+           
+        function saveComment() {
+            var newTitle = $("#title").val();
+            $("#title").replaceWith('<p id="title">' + newTitle + '</p>');
+            var newDesc = $("#desc").val();
+            $("#desc").replaceWith('<p id="desc">' + newDesc + '</p>');
+            $("#save").replaceWith('<a onclick="editComment()" id="edit"><i class="icofont-edit"></i></a>');
+            $.ajax({
+                type: "POST",
+                url: "imagemeta-update.php",
+                data: 
+                {
+                    imagehash: <?php echo "'$imagehash'" ?>,
+                    "title": newTitle,
+                    "desc": newDesc
+                }
+            });
+        } 
     </script>
 </head>
 <body>
     <?php require 'components/nav.php' ?>
     <div style="margin-top: 100px" class="centered">
         <div class="img-area">
-            	<?php if(isset($url)): ?>
+            <?php if(isset($url)): ?>
             <div class="img-header">
                 <div class="img-title">
-                    <p><?php echo $title ?></p>
+                    <p id="title"><?php echo $title ?></p>
                 </div>
                 <div class="img-author">
                     <p>by <a class="img-url" href="<?php echo 'user.php?user=' . $author?>"><?php echo $author ?></a> on <?php echo $uploaded ?></p>
@@ -98,10 +124,11 @@
             <?php if(($id == $userid) || $_SESSION['admin']): ?>
             <div class="img-controls">              
                 <a href="<?php echo $dellink?>"><i class="icofont-trash"></i></a>
+                <a id="edit" onclick="editComment()"><i class="icofont-edit"></i></a>
             </div>
             <?php endif; ?>  
             <div class="img-desc">
-                <p><?php echo $desc ?></p>
+                <p id="desc"><?php echo $desc ?></p>
             </div>
             <?php else: ?>
             <p>No image found.</p>
