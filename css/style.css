@@ -72,6 +72,7 @@ button {
 }
 
 .input {
+    max-width: 100%;
     width: 100%;
     height: 50px;
     border: 0px;
@@ -81,11 +82,28 @@ button {
     color: #fff;
     padding: 10px;
     margin-top: 5px;
-    transition: all 0.3s;
+    transition: border-bottom 0.1s cubic-bezier(0, 0, 0.43, 1.56) 0s;
+    -moz-transition: border-bottom 0.1s cubic-bezier(0, 0, 0.43, 1.56) 0s;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-.input:focus {
+.input-edit {
+    max-width: 100%;
+    width: 100%;
+    height: 50px;
+    border: 0px;
+    border-bottom: 3px solid #ff6961;
+    border-radius: 3px;
+    background-color: #222529;
+    color: #fff;
+    padding: 10px;
+    margin-top: 5px;
+    transition: border-bottom 0.1s cubic-bezier(0, 0, 0.43, 1.56) 0s;
+    -moz-transition: border-bottom 0.1s cubic-bezier(0, 0, 0.43, 1.56) 0s;
+}
+
+.input:focus,
+.input-edit:focus {
     border-bottom: 5px solid #ff3e34;
 }
 
@@ -166,7 +184,7 @@ button {
 }
 
 .img-controls > a {
-    font-size: 13px;
+    font-size: 16px;
     text-decoration: none;
     color: #ff6961;
     transition: all 0.3s;
