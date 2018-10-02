@@ -18,22 +18,6 @@
 
     $uploaded = date( 'd.m.Y H:i', strtotime($info['time_uploaded']) );
 
-    if(($_GET['delete'] == 1) && (($id == $userid) || $_SESSION['admin']))
-    {
-        $path = "images/" . $url . "." . $ext;
-        $sql = "DELETE FROM images WHERE imagehash='$url'";
-        if($mysqli->query($sql))
-        {
-            if(unlink($path))
-                echo "File deleted";
-            else
-                echo "File not deleted";
-            header("location: index.php");
-        }
-        else 
-            echo "db fucked up";
-    }
-
     if(isset($_POST['submitcomment']))
     {
         $comment = htmlspecialchars(trim($_POST['comment']));
@@ -78,20 +62,35 @@
             });
         }
 
-        function editComment() {
+        function removePost(imghash) {
+            $.ajax({
+                type: "POST",
+                url: "image-delete.php",
+                data: 
+                {
+                    imagehash: imghash,
+                    path: <?php echo "'images/$imagehash" . "." . $ext . "'" ?>,
+                },
+                success: function() {
+                    window.location.replace("index.php");
+                }
+            });
+        }
+
+        function editPost() {
             var newTitle = $("#title").html();
-            $("#title").replaceWith('<input type="text" id="title" class="input-edit" placeholder="' + newTitle + '">');
+            $("#title").replaceWith('<input type="text" id="title" class="input-edit" value="' + newTitle + '" >');
             var newDesc = $("#desc").html();
-            $("#desc").replaceWith('<textarea class="input-edit" id="desc" placeholder="' + newDesc + '">');
-            $("#edit").replaceWith('<a id="save" onclick="saveComment()"><i class="icofont-save"></i></a>');
+            $("#desc").replaceWith('<textarea class="input-edit" id="desc">' + newDesc + '</textarea>');
+            $("#edit").replaceWith('<span id="save" onclick="savePost()"><i class="icofont-save"></i></span>');
         }  
            
-        function saveComment() {
+        function savePost() {
             var newTitle = $("#title").val();
             $("#title").replaceWith('<p id="title">' + newTitle + '</p>');
             var newDesc = $("#desc").val();
             $("#desc").replaceWith('<p id="desc">' + newDesc + '</p>');
-            $("#save").replaceWith('<a onclick="editComment()" id="edit"><i class="icofont-edit"></i></a>');
+            $("#save").replaceWith('<span onclick="editPost()" id="edit"><i class="icofont-edit"></i></span>');
             $.ajax({
                 type: "POST",
                 url: "imagemeta-update.php",
@@ -122,9 +121,9 @@
             <img class="gallery-img" src='images/<?php echo $url . "." . $ext?>'>
             </div>
             <?php if(($id == $userid) || $_SESSION['admin']): ?>
-            <div class="img-controls">              
-                <a href="<?php echo $dellink?>"><i class="icofont-trash"></i></a>
-                <a id="edit" onclick="editComment()"><i class="icofont-edit"></i></a>
+            <div class="img-controls">
+                <span class="img-icons" onclick="removePost('<?php echo $imagehash?>')"><i class="icofont-trash"></i></span>
+                <span id="edit" onclick="editPost()"><i class="icofont-edit"></i></span>
             </div>
             <?php endif; ?>  
             <div class="img-desc">

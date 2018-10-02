@@ -183,16 +183,19 @@ button {
     border-bottom: 2px dashed #ff6961;
 }
 
-.img-controls > a {
+.img-controls > span,
+.img-icons {
     font-size: 16px;
     text-decoration: none;
     color: #ff6961;
     transition: all 0.3s;
 }
 
-.img-controls > a:hover {
+.img-controls > span:hover,
+.img-icons:hover {
     text-decoration: none;
     color: #ff3e34;
+    cursor: pointer;
 }
 
 .img-desc {
@@ -416,14 +419,4 @@ button {
 
 .footer-heart:hover {
     color: #ff3e34;
-}
-
-.img-icons {
-    color: #BBB;
-    transition: all 0.3s;
-}
-
-.img-icons:hover {
-    color: #ff6961;
-    cursor: pointer; 
 }

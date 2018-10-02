@@ -6,7 +6,6 @@
     $user = $_SESSION['user_id'];
 
     $result = $mysqli->query("SELECT * FROM comments WHERE id='$commentId'");
-    echo mysqli_errno($mysqli);
     $comments = $result->fetch_assoc();
     if($comments['user_id'] == $user)
     {
