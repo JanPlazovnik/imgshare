@@ -54,6 +54,9 @@
             <?php if(isset($passerror)){ ?><span style="color: #bbb; text-align: center"><?php echo $passerror; ?></span><?php } ?>
             <button class="button" type="submit" name="login">Login</button>
         </form>
+        <div class="register">
+            <a href="register.php">Create an account</a>
+        </div>
     </div>
     <?php require 'components/footer.php' ?>
 </body>
