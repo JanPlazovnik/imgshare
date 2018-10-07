@@ -17,6 +17,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="Imgix" property="og:site_name">
+    <meta content="Imgix" property="og:title">
+    <meta content="Upload and share your photos." property="og:description">
     <title>Imgix</title>
     <?php require 'components/head.php' ?>
 </head>
@@ -24,7 +27,7 @@
     <?php require 'components/nav.php' ?>
     <div style="margin-top: 80px" class="container">
         <?php
-            while($row = mysqli_fetch_assoc($result))    
+            while($row = $result->fetch_assoc())    
             {  
                 echo "<a style='text-decoration: none' href='gallery.php?img=" . $row['imagehash'] . "'>";
                     echo "<div class='grid-item'>";
