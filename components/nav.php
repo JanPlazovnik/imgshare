@@ -1,16 +1,30 @@
-<div class="topnav">
+<div class="topnav noselect">
     <div class="content">
-        <a class="active" href="index.php">Imgix</a>
-        <a href="upload.php">Upload</a>
+        <a class="navlink active" href="index.php">Imgix</a>
+        <a class="navlink" href="upload.php"><i class="icofont-upload-alt"></i> Upload</a>
+        <form class="search-form" action="search.php" method="post" enctype="multipart/form-data">
+            <input class="input-search" type="text" name="query" placeholder="Search" required />   
+            <button class="navlink searchbtn"><i class="icofont-search"></i></button>           
+        </form>
         <?php if($_SESSION['logged_in'] == true): ?>
         <div style="float: right">
-            <a href="<?php echo 'user.php?user=' . $_SESSION['username']?>"><?php echo $_SESSION['username'] ?></a>
-            <a href="logout.php">Sign out</a>
+            <div class="dropdown">
+            <button class="dropbtn"><i class="icofont-ui-user"></i><i class="icofont-caret-down"></i></button>
+            <div class="dropdown-content">
+                <a href="<?php echo 'user.php?user=' . $_SESSION['username']?>"><i class="icofont-ui-user"></i> Profile</a>
+                <a href="settings.php"><i class="icofont-settings"></i> Settings</a>
+                <a href="logout.php"><i class="icofont-logout"></i> Sign out</a>
+            </div>
+            <script type="text/javascript">
+            $(".dropbtn").click(function(){
+                $(".dropdown-content").toggle();
+            });
+            </script>
+        </div>
         </div>
         <?php else: ?>
         <div style="float: right">
-            <a href="login.php">Sign in</a>
-            <a href="register.php">Register</a>
+            <a class="navlink" href="login.php"><i class="icofont-login"></i> Sign in</a>
         </div>
         <?php endif ?>
     </div>
