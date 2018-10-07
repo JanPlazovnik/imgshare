@@ -5,6 +5,7 @@
     $imagehash = $mysqli->escape_string($_GET['img']);
     $result = $mysqli->query("SELECT images.*, users.username, users.admin FROM images JOIN users ON users.id = images.user_id WHERE imagehash='$imagehash'");
     $info = $result->fetch_assoc();
+
     $imageid = $info['id'];
     $url = $info['imagehash'];
     $ext = $info['extension'];
@@ -48,6 +49,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="<?php echo $title?>" property="og:title">
+    <meta content="<?php echo $desc?>" property="og:description">
+    <meta content="Imgix" property="og:site_name">
+    <meta content='http://77.38.77.155/images/<?php echo $url . "." . $ext?>' property='og:image'>
     <title><?php echo $title?></title>
     <?php require 'components/head.php' ?>
     <script type="text/javascript">
@@ -61,6 +66,8 @@
                 }
             });
         }
+
+        //who needs comment editing really i'm too lazy
 
         function removePost(imghash) {
             $.ajax({
@@ -170,8 +177,8 @@
                 ?>   
             </div>
         </div>
+        <?php endif ?>
     </div>
-    <?php endif ?>
     <?php require 'components/footer.php' ?>
 </body>
 </html>
