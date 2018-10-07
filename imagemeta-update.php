@@ -9,6 +9,6 @@
     $sql = $mysqli->query("SELECT * FROM images WHERE imagehash='$imagehash'");
     $user = $sql->fetch_assoc();
 
-    if($_SESSION['admin'] == 1 || $_SESSION['user_id'] == $user['user_id'])
+    if($_SESSION['admin'] || $_SESSION['user_id'] == $user['user_id'])
         $mysqli->query("UPDATE images SET image_title='$title', image_description='$desc' WHERE imagehash='$imagehash'");
 ?>
