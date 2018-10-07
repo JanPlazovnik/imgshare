@@ -13,7 +13,7 @@
 
     $errors = []; // Store all errors
 
-    $fileExtensions = ['jpeg','jpg','png']; // Get all the file extensions
+    $fileExtensions = ['jpeg','jpg','png', 'gif']; // Get all the file extensions
 
     $fileName = $_FILES['imgfile']['name'];
     $fileSize = $_FILES['imgfile']['size'];
@@ -22,7 +22,10 @@
     $fileExtension = strtolower(end(explode('.',$fileName)));
 
     $title = $_POST['title'];
-    $description = $_POST['description'];
+    if(strlen($_POST['description']) > 0)
+        $description = $_POST['description'];
+    else
+        $description = "";
     $imagehash = bin2hex(random_bytes(5));
 
     $uploadPath = $currentDir . $uploadDirectory . basename($fileName); 
@@ -30,7 +33,7 @@
     if (isset($_POST['submit'])) {
 
         if (! in_array($fileExtension,$fileExtensions)) {
-            $errors[] = "This file extension is not allowed. Please upload a JPEG or PNG file";
+            $errors[] = "This file extension is not allowed. Please upload a .jpeg, .jpg, .png or .gif format.";
         }
 
         if ($fileSize > 2000000) {
@@ -75,10 +78,10 @@
     <?php require 'components/nav.php' ?>
     <div class="center">
         <form action="upload.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="imgfile" id="imgfile" accept=".jpeg, .jpg, .png">
-            <label class="label-upload" for="imgfile">Choose photo</label>         
+            <input type="file" name="imgfile" id="imgfile" accept=".jpeg, .jpg, .png, .gif">
+            <label class="label-upload noselect" for="imgfile">Choose photo</label>         
             <input class="input" type="text" name="title" placeholder="Title" required />         
-            <input class="input" type="text" placeholder="Description" name="description" required />       
+            <input class="input" type="text" placeholder="Description" name="description" />       
             <button class="button" type="submit" name="submit">Upload</button>
         </form>
         <?php if(isset($imgurl)){ ?><span class="img-url"><?php echo "You can find your image <a href='" . $imgurl . "'>here</a>"; ?></span><?php } ?>
