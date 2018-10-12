@@ -470,3 +470,9 @@ button {
 .noresult {
     color: #fff;
 }
+
+.error {
+    color: #bbb;
+    margin: 5px;
+    max-width: 350px;
+}
