@@ -15,6 +15,8 @@
     $userid = $info['user_id'];
     $id = $_SESSION['user_id'];
 
+    $errors = [];
+
     $dellink = "gallery.php?img=" . $url . "&delete=1";
 
     $uploaded = date( 'd.m.Y H:i', strtotime($info['time_uploaded']) );
@@ -25,20 +27,21 @@
         
         if(strlen($comment) > 250)
         {
-            $error = "You have exceeded the comment length of 250 characters.";
+            $errors[] = "You have exceeded the comment length of 250 characters.";
         }
         else if($comment == "")
         {
-            $error = "Comment can't be empty.";
+            $errors[] = "Comment can't be empty.";
         }
         else {
             $sql = "INSERT INTO comments (image_id, user_id, comment_text, time_created)" . "VALUES ('$imageid', '$id', '$comment', NOW())";
             if($mysqli->query($sql))
             {
-                $success = "gj";
+                //$success = "Query successfuly executed.";
+                debug_to_console( "Query successfuly executed." );
             }
             else {
-                $error = "idiot";
+                $errors[] = "Couldn't execute the query.";
             }
         }
     }
@@ -152,6 +155,13 @@
             <?php elseif($_SESSION['logged_in'] == false): ?>
             <h3 class="comment-login">In order to comment you must first login.</h3>
             <?php  endif ?>
+            <?php if(!empty($errors))
+            {
+                foreach ($errors as $error) {
+                    echo "<p class='error'>" . $error . "</p>";
+                }
+            }
+            ?>
             <div class="all-comments">
                 <?php
                     $result = $mysqli->query("SELECT comments.*, users.username FROM comments JOIN users ON users.id = comments.user_id WHERE image_id='$imageid' ORDER BY comments.time_created DESC");      
