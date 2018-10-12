@@ -12,7 +12,7 @@
     $result = $mysqli->query("SELECT * FROM images WHERE imagehash='$imagehash'");
     $user = $result->fetch_assoc();
 
-    if((($_SESSION['user_id'] == $user['id']) || $_SESSION['admin']))
+    if((($_SESSION['user_id'] == $user['user_id']) || $_SESSION['admin']))
     {
         $sql = "DELETE FROM images WHERE imagehash='$imagehash'";
         if($mysqli->query($sql))
