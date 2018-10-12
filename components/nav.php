@@ -11,7 +11,7 @@
             <div class="dropdown">
             <button class="dropbtn"><i class="icofont-ui-user"></i><i class="icofont-caret-down"></i></button>
             <div class="dropdown-content">
-                <a href="<?php echo 'user.php?user=' . $_SESSION['username']?>"><i class="icofont-ui-user"></i> Profile</a>
+                <a href="<?php echo 'user.php?user=' . $_SESSION['username']?>"><i class="icofont-ui-user"></i> <?php echo $_SESSION['username']?></a>
                 <a href="settings.php"><i class="icofont-settings"></i> Settings</a>
                 <a href="logout.php"><i class="icofont-logout"></i> Sign out</a>
             </div>
