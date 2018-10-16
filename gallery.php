@@ -34,15 +34,7 @@
             $errors[] = "Comment can't be empty.";
         }
         else {
-            $sql = "INSERT INTO comments (image_id, user_id, comment_text, time_created)" . "VALUES ('$imageid', '$id', '$comment', NOW())";
-            if($mysqli->query($sql))
-            {
-                //$success = "Query successfuly executed.";
-                debug_to_console( "Query successfuly executed." );
-            }
-            else {
-                $errors[] = "Couldn't execute the query.";
-            }
+            $mysqli->query("INSERT INTO comments (image_id, user_id, comment_text, time_created)" . "VALUES ('$imageid', '$id', '$comment', NOW())") or trigger_error("ERROR:" . mysqli_error($mysqli), E_USER_ERROR);
         }
     }
 ?>
@@ -55,7 +47,7 @@
     <meta content="<?php echo $title?>" property="og:title">
     <meta content="<?php echo $desc?>" property="og:description">
     <meta content="Imgix" property="og:site_name">
-    <meta content='http://77.38.77.155/images/<?php echo $url . "." . $ext?>' property='og:image'>
+    <meta content='<?php echo $_SERVER['REQUEST_URI']?>/images/<?php echo $url . "." . $ext?>' property='og:image'>
     <title><?php echo $title?></title>
     <?php require 'components/head.php' ?>
     <script type="text/javascript">
@@ -70,7 +62,26 @@
             });
         }
 
-        //who needs comment editing really i'm too lazy
+        function editComment(id) {
+            var newText = $("#id" + id).html();
+            $("#id" + id).replaceWith('<textarea class="input-edit" id="id'+id+'">' + newText + '</textarea>');
+            $("#editComment" + id).replaceWith('<span id="saveComment' + id + '" onclick="saveComment(' + id + ')"><i class="icofont-save"></i></span>');
+        }  
+        
+        function saveComment(id) {
+            var newText = $("#id" + id).val();
+            $("#id" + id).replaceWith('<p id="id' + id +'">' + newText + '</p>');
+            $("#saveComment" + id).replaceWith('<span id="editComment' + id + '" onclick="editComment(' + id + ')"><i class="icofont-edit"></i></span>');
+            $.ajax({
+                type: "POST",
+                url: "comment-update.php",
+                data: 
+                {
+                    "id": id,
+                    "comment": newText
+                }
+            });
+        }
 
         function removePost(imghash) {
             $.ajax({
@@ -80,9 +91,6 @@
                 {
                     imagehash: imghash,
                     path: <?php echo "'images/$imagehash" . "." . $ext . "'" ?>,
-                },
-                success: function() {
-                    window.location.replace("index.php");
                 }
             });
         }
@@ -176,11 +184,12 @@
                                 echo "<p><a class='img-url' href='user.php?user=$commenter'>$commenter</a> on $when";     
                                 if($user == $_SESSION['user_id'])
                                 {
-                                    echo " | <span class='img-icons' onclick='removeComment($commentId)'><i class='icofont-trash'></i></span></p>";
+                                    echo " | <span class='img-icons' onclick='removeComment($commentId)'><i class='icofont-trash'></i></span>";
+                                    echo " <span class='img-icons' id='editComment$commentId' onclick='editComment($commentId)'><i class='icofont-edit'></i></span></p>";
                                 }
                             echo "</div>";           
                             echo "<div class='comment-content'>";     
-                                echo "<p>" . $row['comment_text'] . "</p>";
+                                echo "<p id='id$commentId'>" . $row['comment_text'] . "</p>";
                             echo "</div>";
                         echo "</div>";
                     }
