@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Gostitelj: localhost
--- Čas nastanka: 02. okt 2018 ob 20.03
+-- Čas nastanka: 16. okt 2018 ob 14.41
 -- Različica strežnika: 5.6.37
 -- Različica PHP: 7.1.8
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Zbirka podatkov: `imgsite`
 --
+CREATE DATABASE IF NOT EXISTS `imgsite` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `imgsite`;
 
 -- --------------------------------------------------------
 
@@ -26,14 +28,14 @@ SET time_zone = "+00:00";
 -- Struktura tabele `comments`
 --
 
+DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL,
   `image_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `comment_text` varchar(255) NOT NULL,
   `time_created` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
-
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -41,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
 -- Struktura tabele `images`
 --
 
+DROP TABLE IF EXISTS `images`;
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -51,20 +54,13 @@ CREATE TABLE IF NOT EXISTS `images` (
   `time_uploaded` datetime NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
---
--- Odloži podatke za tabelo `images`
---
-
-INSERT INTO `images` (`id`, `user_id`, `imagehash`, `extension`, `image_title`, `image_description`, `time_uploaded`) VALUES
-(3, 10, 'f659f3535e', 'jpg', 'x', 'y asdf', '2018-09-16 12:49:58'),
-(5, 14, '0dcb015a67', 'jpeg', 'asdas title', 'Descriptions are dsad', '2018-09-18 12:46:47');
-
 -- --------------------------------------------------------
 
 --
 -- Struktura tabele `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -72,10 +68,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) NOT NULL,
   `time_created` datetime NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Odloži podatke za tabelo `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `time_created`, `admin`) VALUES
+(1, 'admin', '$2y$10$lfFouoEvZo9augB6px4C4e3laUJeu/xzcJKEDHLZknvefcfe6dCdO', 'jan.plazovnik@gmail.com', '2018-10-16 15:59:38', 1);
+
 --
 -- Indeksi zavrženih tabel
 --
@@ -84,13 +85,16 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Indeksi tabele `comments`
 --
 ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `comments_images_id_fk` (`image_id`),
+  ADD KEY `comments_users_id_fk` (`user_id`);
 
 --
 -- Indeksi tabele `images`
 --
 ALTER TABLE `images`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `images_users_id_fk` (`user_id`);
 
 --
 -- Indeksi tabele `users`
@@ -106,17 +110,34 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT tabele `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT tabele `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT tabele `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- Omejitve tabel za povzetek stanja
+--
+
+--
+-- Omejitve za tabelo `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_images_id_fk` FOREIGN KEY (`image_id`) REFERENCES `images` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `comments_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Omejitve za tabelo `images`
+--
+ALTER TABLE `images`
+  ADD CONSTRAINT `images_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
