@@ -11,7 +11,7 @@
     if(isset($_POST['username']) && isset($_POST['password']))
     {
         $username = $_POST['username'];
-        $result = $mysqli->query("SELECT * FROM users WHERE username='$username'");
+        $result = $mysqli->query("SELECT * FROM users WHERE username='$username'") or trigger_error("ERROR:" . mysqli_error($mysqli), E_USER_ERROR);
 
         if($result->num_rows == 0)
         {
@@ -19,8 +19,7 @@
         }
         else {
             $user = $result->fetch_assoc();
-            /*var_dump($user);
-            die();*/
+
             if(password_verify($_POST['password'], $user['password']))
             {
                 $_SESSION['logged_in'] = true;
