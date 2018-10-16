@@ -24,6 +24,6 @@
             header("location: index.php");
         }
         else 
-            echo "db fucked up";
+            trigger_error("ERROR:" . mysqli_error($mysqli), E_USER_ERROR);
     }
 ?>
