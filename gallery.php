@@ -91,6 +91,9 @@
                 {
                     imagehash: imghash,
                     path: <?php echo "'images/$imagehash" . "." . $ext . "'" ?>,
+                },
+                success: function() {
+                    window.location.replace("index.php");
                 }
             });
         }
