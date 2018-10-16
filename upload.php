@@ -52,6 +52,7 @@
                 } 
                 else {
                     $errors[] = "Couldn't execute the query.";
+                    trigger_error("ERROR." . mysqli_error($mysqli), E_USER_ERROR);
                 }               
             } 
             else {
