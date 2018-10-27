@@ -2,13 +2,6 @@
     require 'app/db.php';
     session_start();
 
-    /*$result = $mysqli->query("SELECT * FROM images");
-    $image = $result->fetch_assoc();
-    $url = $image['imagehash'];
-    $ext = $image['extension'];
-    $title = $image['image_title'];
-    $desc = $image['image_description'];*/
-
     $result = $mysqli->query("SELECT images.*, users.username, users.id FROM images JOIN users ON users.id = images.user_id ORDER BY time_uploaded DESC");
 ?>
 <!DOCTYPE html>
