@@ -43,7 +43,7 @@
                 <div class="settings-content-password settings-form-hidden">
                     <form action="settings-password.php" method="post" autocomplete="off" enctype="multipart/form-data">
                         <p>Enter your current password</p>
-                        <input class="input" type="password" name="currentPassword" placeholder="Old password" required>
+                        <input class="input" type="password" name="oldPassword" placeholder="Old password" required>
                         <p>Enter your new password</p>
                         <input class="input" type="password" name="newPassword" placeholder="New password" required>
                         <button class="button" type="submit" name="submitPassword">Submit</button>
