@@ -103,13 +103,13 @@ button {
 }
 
 .search-form {
-    display: inline-block;
+    display: inline;
     position: relative;
 }
 
 .input-search {
     display: inline;
-    width: 250px;
+    max-width: 250px;
     border: 0px;
     border-bottom: 3px solid #ff6961;
     border-radius: 3px;
@@ -329,6 +329,9 @@ button {
     form {
         min-width: 250px;
     }
+    .dropbtn {
+        padding: 16px 6px 0px 0px;
+    }
 }
 
 @media only screen and (max-width: 510px) {
@@ -341,6 +344,9 @@ button {
     .right {
         float: left !important;
     }
+    .dropbtn {
+        padding: 16px 6px 0px 0px;
+    }
 }
 
 @media only screen and (max-width: 769px) {
@@ -349,7 +355,10 @@ button {
     .comments {
         margin: 0 auto;
         width: 95%;
-    }
+    }   
+    .dropbtn {
+        padding: 16px;
+    }  
 }
 
 @media only screen and (max-width: 990px) {
@@ -358,6 +367,9 @@ button {
     .comments {
         margin: 0 auto;
         width: 95%;
+    }
+    .dropbtn {
+        padding: 16px;
     }
 }
 
