@@ -44,12 +44,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta content="<?php echo $title?>" property="og:title">
-    <meta content="<?php echo $desc?>" property="og:description">
-    <meta content="Imgix" property="og:site_name">
-    <meta content='<?php echo $_SERVER['REQUEST_URI']?>/images/<?php echo $url . "." . $ext?>' property='og:image'>
-    <title><?php echo $title?></title>
+    <meta content='http://<?php echo $_SERVER['HTTP_HOST']?>/imgshare/images/<?php echo $url . "." . $ext?>' property='og:image'>
     <?php require 'components/head.php' ?>
+    <title><?php echo $title?></title>
     <script type="text/javascript">
         function removeComment(id) {
             $.ajax({
