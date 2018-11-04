@@ -7,22 +7,21 @@
     {
         header("location: index.php");
     }
-
+    $errors = [];
     if(isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']))
     {
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];
-        
         if (strlen($password) < 6) {
-            $passerror = 'Password must be at least 6 characters long.';
+            $errors[] = 'Password must be at least 6 characters long.';
         }
         else if((strlen($username) < 4) || (strlen($username) > 16))
         {
-            $usererror = 'Username must be betwen 4 and 16 characters long.';
+            $errors[] = 'Username must be betwen 4 and 16 characters long.';
         }
         else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailerror = "Invalid email format";
+            $errors[] = "Invalid email format";
         }
         else {
             $username = $mysqli->escape_string(trim($_POST['username']));
@@ -35,7 +34,7 @@
 
             if($result->num_rows > 0)
             {
-                $errmsg = "Account already exists!";
+                $errors[] = "Account already exists!";
             }
             else {
                 $sql = "INSERT INTO users (username, password, email, time_created)". "VALUES ('$username', '$password', '$email', NOW())";      
@@ -45,7 +44,7 @@
                     header("location: login.php");
                 }
                 else {
-                    $errmsg = "Account creation failed!";
+                    $errors[] = "Account creation failed!";
                 }
             }
         }
@@ -64,16 +63,18 @@
     <?php require 'components/nav.php' ?>
     <div class="center" style="text-align: center">
         <form action="register.php" method="post" autocomplete="off" enctype="multipart/form-data"> 
-            <input class="input" type="text" placeholder="Username" name="username" required/>
-            <?php if(isset($usererror)){ ?><span style="color: #bbb; text-align: center"><?php echo $usererror; ?></span><?php } ?>
+            <input class="input" type="text" placeholder="Username (min. 4 and max. 16 characters)" name="username" required/>
             <input class="input" type="text" placeholder="Email" name="email" required/>
-            <?php if(isset($emailerror)){ ?><span style="color: #bbb; text-align: center"><?php echo $emailerror; ?></span><?php } ?>
-            <input class="input" type="password" placeholder="Password" name="password" required/>
-            <?php if(isset($passerror)){ ?><span style="color: #bbb; text-align: center"><?php echo $passerror; ?></span><?php } ?>
+            <input class="input" type="password" placeholder="Password (min. 6 characters)" name="password" required/>
             <button class="button" type="submit" name="register">Register</button>
         </form>
-        <?php if(isset($errmsg)){ ?><span style="color: #bbb; text-align: center"><?php echo $errmsg; ?></span><?php } ?>
-        <?php if(isset($succmsg)){ ?><span style="color: #bbb; text-align: center"><?php echo $succmsg; ?></span><?php } ?>
+        <?php if(!empty($errors))
+        {
+            foreach ($errors as $error) {
+                echo "<p class='error'>" . $error . "</p>";
+            }
+        }
+        ?>
     </div>
     <?php require 'components/footer.php' ?>
 </body>
