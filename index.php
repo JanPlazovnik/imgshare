@@ -10,9 +10,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta content="Imgix" property="og:site_name">
-    <meta content="Imgix" property="og:title">
-    <meta content="Upload and share your photos." property="og:description">
     <title>Imgix</title>
     <?php require 'components/head.php' ?>
 </head>
