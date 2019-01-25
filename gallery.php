@@ -34,7 +34,13 @@
             $errors[] = "Comment can't be empty.";
         }
         else {
-            $mysqli->query("INSERT INTO comments (image_id, user_id, comment_text, time_created)" . "VALUES ('$imageid', '$id', '$comment', NOW())") or trigger_error("ERROR:" . mysqli_error($mysqli), E_USER_ERROR);
+            if($mysqli->query("INSERT INTO comments (image_id, user_id, comment_text, time_created)" . "VALUES ('$imageid', '$id', '$comment', NOW())"))
+            {
+                header('Location:'.$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']);
+            }
+
+            else {trigger_error("ERROR:" . mysqli_error($mysqli), E_USER_ERROR);}
+
         }
     }
 ?>
@@ -68,7 +74,7 @@
         function saveComment(id) {
             var newText = $("#id" + id).val();
             $("#id" + id).replaceWith('<p id="id' + id +'">' + newText + '</p>');
-            $("#saveComment" + id).replaceWith('<span id="editComment' + id + '" onclick="editComment(' + id + ')"><i class="icofont-edit"></i></span>');
+            $("#saveComment" + id).replaceWith('<span id="editComment' + id + '" class="img-icons" onclick="editComment(' + id + ')"><i class="icofont-edit"></i></span>');
             $.ajax({
                 type: "POST",
                 url: "comment-update.php",
@@ -101,8 +107,8 @@
             var newDesc = $("#desc").html();
             $("#desc").replaceWith('<textarea class="input-edit" id="desc">' + newDesc + '</textarea>');
             $("#edit").replaceWith('<span id="save" onclick="savePost()"><i class="icofont-save"></i></span>');
-        }  
-           
+        }
+
         function savePost() {
             var newTitle = $("#title").val();
             $("#title").replaceWith('<p id="title">' + newTitle + '</p>');

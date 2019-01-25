@@ -8,30 +8,28 @@
         header("location: login.php");
     }
 
-    $currentDir = getcwd();
-    $uploadDirectory = "/images/";
-
-    $errors = []; // Store all errors
-
-    $fileExtensions = ['jpeg','jpg','png', 'gif']; // Get all the file extensions
-
-    $fileName = $_FILES['imgfile']['name'];
-    $fileSize = $_FILES['imgfile']['size'];
-    $fileTmpName  = $_FILES['imgfile']['tmp_name'];
-    $fileType = $_FILES['imgfile']['type'];
-    $fileExtension = strtolower(end(explode('.',$fileName)));
-
-    $title = $_POST['title'];
-    if(strlen($_POST['description']) > 0)
-        $description = $_POST['description'];
-    else
-        $description = "";
-    $imagehash = bin2hex(random_bytes(5));
-
-    $uploadPath = $currentDir . $uploadDirectory . basename($fileName); 
-
     if(isset($_POST['submit'])) 
     {
+        $currentDir = getcwd();
+        $uploadDirectory = "/images/";
+        $errors = [];
+        $fileExtensions = ['jpeg','jpg','png', 'gif'];
+    
+        $fileName = $_FILES['imgfile']['name'];
+        $fileSize = $_FILES['imgfile']['size'];
+        $fileTmpName  = $_FILES['imgfile']['tmp_name'];
+        $fileType = $_FILES['imgfile']['type'];
+        $fileExtension = strtolower(end(explode('.',$fileName)));
+    
+        $title = $_POST['title'];
+        if(strlen($_POST['description']) > 0)
+            $description = $_POST['description'];
+        else
+            $description = "";
+        $imagehash = bin2hex(random_bytes(5));
+    
+        $uploadPath = $currentDir . $uploadDirectory . basename($fileName); 
+
         if(!in_array($fileExtension, $fileExtensions)) {
             $errors[] = "Invalid format. Use only .jpeg, .jpg, .png or .gif format.";
         }

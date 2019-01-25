@@ -6,7 +6,7 @@
             <input class="input-search" type="text" name="query" placeholder="Search" required />   
             <button class="navlink searchbtn"><i class="icofont-search"></i></button>           
         </form>
-        <?php if($_SESSION['logged_in'] == true): ?>
+        <?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true): ?>
         <div style="float: right">
             <div class="dropdown">
             <button class="dropbtn"><i class="icofont-ui-user"></i><i class="icofont-caret-down"></i></button>
