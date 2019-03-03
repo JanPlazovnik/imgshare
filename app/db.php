@@ -1,5 +1,5 @@
 <?php
-    $mysqli = new mysqli('localhost', 'root', 'mysql', 'imgsite') or die($mysqli->error);
+    $mysqli = new mysqli('localhost', 'root', '', 'imgsite') or die($mysqli->error);
 
     function debug_to_console( $data ) {
         $output = $data;
