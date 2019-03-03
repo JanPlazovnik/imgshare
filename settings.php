@@ -2,7 +2,7 @@
     require 'app/db.php';
     session_start();
 
-    if(!$_SESSION['logged_in'])
+    if(isset($_SESSION['logged_in']) && !$_SESSION['logged_in'])
     {
         header("location: index.php");
     }

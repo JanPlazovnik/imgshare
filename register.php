@@ -2,8 +2,8 @@
     require 'app/db.php';
 
     session_start();
-   
-    if($_SESSION['logged_in'] == true)
+
+    if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
     {
         header("location: index.php");
     }
@@ -20,7 +20,8 @@
         {
             $errors[] = 'Username must be betwen 4 and 16 characters long.';
         }
-        else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
+        {
             $errors[] = "Invalid email format";
         }
         else {

@@ -13,7 +13,8 @@
     $desc = $info['image_description'];
     $author = $info['username'];
     $userid = $info['user_id'];
-    $id = $_SESSION['user_id'];
+    if(isset($_SESSION['user_id']))
+        $id = $_SESSION['user_id'];
 
     $errors = [];
 
@@ -144,7 +145,7 @@
             <div class="img-box">
             <img class="gallery-img" src='images/<?php echo $url . "." . $ext?>'>
             </div>
-            <?php if(($id == $userid) || $_SESSION['admin']): ?>
+            <?php if((isset($id) && $id == $userid) || isset($_SESSION['admin']) && $_SESSION['admin']): ?>
             <div class="img-controls">
                 <span class="img-icons" onclick="removePost('<?php echo $imagehash?>')"><i class="icofont-trash"></i></span>
                 <span id="edit" onclick="editPost()"><i class="icofont-edit"></i></span>
@@ -159,14 +160,14 @@
         </div>
         <?php if(isset($url)): ?>
         <div class="comments">
-            <?php if($_SESSION['logged_in'] == true): ?>
+            <?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true): ?>
             <div class="new-comment">
                 <form action="gallery.php?img=<?php echo $url?>" method="post" autocomplete="off" enctype="multipart/form-data">
                     <textarea class="input" placeholder="Write your comment" name="comment" maxlength="250" required></textarea>
                     <button class="button" type="submit" name="submitcomment">Submit</button>
                 </form>
             </div>
-            <?php elseif($_SESSION['logged_in'] == false): ?>
+            <?php elseif(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == false): ?>
             <h3 class="comment-login">In order to comment you must first login.</h3>
             <?php  endif ?>
             <?php if(!empty($errors))

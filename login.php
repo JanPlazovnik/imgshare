@@ -3,7 +3,7 @@
 
     session_start();
 
-    if($_SESSION['logged_in'] == true)
+    if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true)
     {
         header("location: index.php");
     }
