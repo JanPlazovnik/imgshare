@@ -189,7 +189,7 @@
                         echo "<div id='cmnt$commentId' class='comment-item'>";
                             echo "<div class='comment-author'>";
                                 echo "<p><a class='img-url' href='user.php?user=$commenter'>$commenter</a> on $when";     
-                                if($user == $_SESSION['user_id'])
+                                if(isset($_SESSION['user_id']) && $user == $_SESSION['user_id'])
                                 {
                                     echo " | <span class='img-icons' onclick='removeComment($commentId)'><i class='icofont-trash'></i></span>";
                                     echo " <span class='img-icons' id='editComment$commentId' onclick='editComment($commentId)'><i class='icofont-edit'></i></span></p>";
